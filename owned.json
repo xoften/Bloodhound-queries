@@ -1,0 +1,37 @@
+{
+    "queries": 
+    [
+        {
+            "name": "List all owned computers",
+            "category": "Owned Hunter",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (m:Computer) WHERE m.owned=TRUE RETURN m"
+            }]
+        },
+        {
+            "name": "List all owned groups",
+            "category": "Owned Hunter",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (m:Group) WHERE m.owned=TRUE RETURN m"
+            }]
+        },
+        {
+            "name": "List all High Valued Targets",
+            "category": "Owned Hunter",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (m) WHERE m.highvalue=TRUE RETURN m"
+            }]
+        },
+        {
+            "name": "List the groups of all owned users",
+            "category": "Owned Hunter",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (m:User) WHERE m.owned=TRUE WITH m MATCH p=(m)-[:MemberOf*1..]->(n:Group) RETURN p"
+            }]
+        }
+    ]
+}

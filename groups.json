@@ -1,0 +1,64 @@
+{
+    "queries": 
+    [
+        {
+            "name": "Users with adminCount, not sensitive for delegation, not members of Protected Users",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (u)-[:MemberOf*1..]->(g:Group) WHERE g.objectid =~ \"(?i)S-1-5-.*-525\" WITH COLLECT (u.name) as protectedUsers MATCH p=(u2:User)-[:MemberOf*1..3]->(g2:Group) WHERE u2.admincount=true AND u2.sensitive=false AND NOT u2.name IN protectedUsers RETURN p"
+            }]
+        },
+        {
+            "name": "Groups that contain the word 'admin'",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "Match (n:Group) WHERE n.name CONTAINS 'ADMIN' RETURN n"
+            }]
+        },
+        {
+            "name": "Groups of High Value Targets",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(n:User)-[r:MemberOf*1..]->(m:Group {highvalue:true}) RETURN p"
+            }]
+        },
+        {
+            "name": "Non Admin Groups with High Value Privileges",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(g:Group)-[r:Owns|:WriteDacl|:GenericAll|:WriteOwner|:ExecuteDCOM|:GenericWrite|:AllowedToDelegate|:ForceChangePassword]->(n:Computer) WHERE NOT g.name CONTAINS 'ADMIN' RETURN p",
+                "allowCollapse": true
+            }]
+        },
+        {
+            "name": "Groups with Computer and User Objects",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (c:Computer)-[r:MemberOf*1..]->(groupsWithComps:Group) WITH groupsWithComps MATCH (u:User)-[r:MemberOf*1..]->(groupsWithComps) RETURN DISTINCT(groupsWithComps) as groupsWithCompsAndUsers",
+                "allowCollapse": true,
+                "endNode": "{}"
+            }]
+        },
+        {
+            "name": "Groups that can reset passwords (Warning: Heavy)",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(m:Group)-[r:ForceChangePassword]->(n:User) RETURN p"
+            }]
+        },
+        {
+            "name": "Groups that have local admin rights (Warning: Heavy)",
+            "category": "Group Hunts",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(m:Group)-[r:AdminTo]->(n:Computer) RETURN p"
+            }]
+        }
+    ]
+}

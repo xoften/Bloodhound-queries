@@ -1,0 +1,149 @@
+{
+    "queries": 
+    [
+        {
+            "name": "Find Server 2000",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2000).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2000 with session",
+            "category": "OS Finder",                        
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(2000).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2003",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2003).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2003 with session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(2003).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2008",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2008).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find all computers with unsupported operating systems",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem = '.*(2000|2003|2008|xp|vista|7|me).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2008 with session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(2008).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Windows XP",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(xp).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Windows XP with session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(xp).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Windows 7",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(7).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Windows 7 session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(7).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2012",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2012).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2012 with session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(2012).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2016",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2016).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2016 with session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(2016).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2019",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2019).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2019 with session",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer)-[:HasSession]->(y) WHERE H.operatingsystem =~ '(?i).*(2019).*' RETURN H"
+            }]
+        },
+        {
+            "name": "Find Server 2019 with computer enabled",
+            "category": "OS Finder",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (H:Computer) WHERE H.operatingsystem =~ '(?i).*(2019).*' AND H.enabled = true  RETURN H"
+            }]
+        }
+    ]
+}

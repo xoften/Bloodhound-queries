@@ -1,0 +1,85 @@
+{
+    "queries": 
+    [
+        {
+            "name": "View all GPOs",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "Match (n:GPO) RETURN n"
+            }]
+        },
+        {
+            "name": "View all groups that contain the word 'admin'",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "Match (n:Group) WHERE n.name CONTAINS 'ADMIN' RETURN n"
+            }]
+        },
+        {
+            "name": "Find groups that contain both users and computers",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (c:Computer)-[r:MemberOf*1..]->(groupsWithComps:Group) WITH groupsWithComps MATCH (u:User)-[r:MemberOf*1..]->(groupsWithComps) RETURN DISTINCT(groupsWithComps) as groupsWithCompsAndUsers"
+            }]
+        },
+        {
+            "name": "Find Kerberoastable users who are members of high value groups",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (u:User)-[r:MemberOf*1..]->(g:Group) WHERE g.highvalue=true AND u.hasspn=true RETURN u"
+            }]
+        },
+        {
+            "name": "Find Kerberoastable users and where they are AdminTo",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "OPTIONAL MATCH (u1:User) WHERE u1.hasspn=true OPTIONAL MATCH (u1)-[r:AdminTo]->(c:Computer) RETURN u"
+            }]
+        },
+        {
+            "name": "Find Users/Groups with direct access to GPOs",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p = (n)-[r:AddMember|AddSelf|WriteSPN|AddKeyCredentialLink|AllExtendedRights|ForceChangePassword|GenericAll|GenericWrite|WriteDacl|WriteOwner|Owns]->(g:GPO) RETURN p"
+            }]
+        },
+        {
+            "name": "Find if any domain user has interesting permissions against a GPO (Warning: Heavy)",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(u:User)-[r:AllExtendedRights|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|GpLink*1..]->(g:GPO) RETURN p"
+            }]
+        },
+        {
+            "name": "Find if unprivileged users have rights to add members into groups",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (n:User {admincount:False}) MATCH p=allShortestPaths((n)-[r:AddMember*1..]->(m:Group)) RETURN p"
+            }]
+        },
+        {
+            "name": "Find all users a part of the VPN group",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "Match p=(u:User)-[:MemberOf]->(g:Group) WHERE toUPPER (g.name) CONTAINS 'VPN' return p"
+            }]
+        },
+        {
+            "name": "Find an object in one domain that can do something to a foreign object",
+            "category": "GPO/Group Information",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(n)-[r]->(m) WHERE NOT n.domain = m.domain RETURN p"
+            }]
+        }
+    ]
+}

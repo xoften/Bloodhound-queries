@@ -1,0 +1,57 @@
+{
+    "queries": 
+    [
+        {
+            "name": "Find all Certificate Templates",
+            "category": "Certificates",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (n:GPO) WHERE n.type = 'Certificate Template' RETURN n"
+            }]
+        },
+        {
+            "name": "Find enabled Certificate Templates",
+            "category": "Certificates",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (n:GPO) WHERE n.type = 'Certificate Template' and n.Enabled = true RETURN n"
+            }]
+        },
+        {
+            "name": "Find Certificate Authorities",
+            "category": "Certificates",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (n:GPO) WHERE n.type = 'Enrollment Service' RETURN n"
+            }]
+        },
+        {
+            "name": "Show Enrollment Rights for Certificate Template",
+            "category": "Certificates",
+            "queryList": [{
+                "final": false,
+                "title": "Select a Certificate Template...",
+                "query": "MATCH (n:GPO) WHERE n.type = 'Certificate Template' RETURN n.name"
+            },
+            {
+                "final": true,
+                "query": "MATCH p=(g)-[:Enroll|AutoEnroll]->(n:GPO {name:$result}) WHERE n.type = 'Certificate Template' return p",
+                "allowCollapse": false
+            }]
+        },
+        {
+            "name": "Show Rights for Certificate Authority",
+            "category": "Certificates",
+            "queryList": [{
+                "final": false,
+                "title": "Select a Certificate Authority...",
+                "query": "MATCH (n:GPO) WHERE n.type = 'Enrollment Service' RETURN n.name"
+            },
+            {
+                "final": true,
+                "query": "MATCH p=(g)-[:ManageCa|ManageCertificates|Auditor|Operator|Read|Enroll]->(n:GPO {name:$result}) return p",
+                "allowCollapse": false
+            }]
+        }
+    ]
+}

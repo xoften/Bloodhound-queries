@@ -1,0 +1,53 @@
+{
+    "queries": 
+    [
+        {
+            "name": "Unconstrained Delegation systems",
+            "category": "Delegation Attacks",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (c {unconstraineddelegation:true}) return c"
+            }]
+        },
+        {
+            "name": "Constrained Delegation systems",
+            "category": "Delegation Attacks",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH p=(u)-[:AllowedToDelegate]->(c) RETURN p"
+            }]
+        },
+        {
+            "name": "Unconstrained Delegation systems (without domain controllers)",
+            "category": "Delegation Attacks",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (c1:Computer)-[:MemberOf*1..]->(g:Group) WHERE g.objectid ENDS WITH '-516' WITH COLLECT(c1.name) AS domainControllers MATCH (c2 {unconstraineddelegation:true}) WHERE NOT c2.name IN domainControllers RETURN c2"
+            }]
+        },
+        {
+            "name": "(Warning: edits the DB) Mark unconstrained delegation systems as high value targets",
+            "category": "Delegation Attacks",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (c1:Computer)-[:MemberOf*1..]->(g:Group) WHERE g.objectid ENDS WITH '-516' WITH COLLECT(c1.name) AS domainControllers MATCH (c2 {unconstraineddelegation:true}) WHERE NOT c2.name IN domainControllers SET c2.highvalue = true RETURN c2"
+            }]
+        },
+        {
+            "name": "Shortest paths from owned principals to unconstrained delegation systems",
+            "category": "Delegation Attacks",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (n {owned:true}) MATCH p=shortestPath((n)-[:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin|ReadGMSAPassword|HasSIDHistory|CanPSRemote*1..]->(m:Computer {unconstraineddelegation: true})) WHERE NOT n=m RETURN p"
+            }]
+        },
+        {
+            "name": "Find computers with constrained delegation permissions and the corresponding targets where they allowed to delegate",
+            "category": "Delegation Attacks",
+            "queryList": [{
+                "final": true,
+                "query": "MATCH (c:Computer) WHERE c.allowedtodelegate IS NOT NULL RETURN c"
+            }]
+        }
+    ]
+}
