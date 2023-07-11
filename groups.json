@@ -10,6 +10,21 @@
             }]
         },
         {
+            "name": "Dangerous Rights for Groups under Domain Users",
+            "category": "DACL Abuse",
+            "queryList": [
+                {
+                    "final": false,
+                    "title": "Select a Domain...",
+                    "query": "MATCH (n:Domain) RETURN n.name ORDER BY n.name DESC"
+                },
+                {
+                    "final": true,
+                    "query": "MATCH p=(m:Group {domain: $result})-[r1:MemberOf*1..]->(g:Group)-[:Owns|WriteDacl|GenericAll|WriteOwner|ExecuteDCOM|GenericWrite|AllowedToDelegate|ForceChangePassword]->(n) WHERE m.objectid ENDS WITH '-513' RETURN p"
+                }
+            ]
+        },
+        {
             "name": "Groups that contain the word 'admin'",
             "category": "Group Hunts",
             "queryList": [{

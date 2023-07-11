@@ -10,6 +10,21 @@
             }]
         },
         {
+            "name": "Interesting GPOs by Keyword",
+            "category": "Group Policies",
+            "queryList": [
+                {
+                    "final": false,
+                    "title": "Select a Domain...",
+                    "query": "MATCH (n:Domain) RETURN n.name ORDER BY n.name DESC"
+                },
+                {
+                    "final": true,
+                    "query": "UNWIND [\"360totalsecurity\", \"access\", \"acronis\", \"adaware\", \"admin\", \"admin\", \"aegislab\", \"ahnlab\", \"alienvault\", \"altavista\", \"amsi\", \"anti-virus\", \"antivirus\", \"antiy\", \"apexone\", \"applock\", \"arcabit\", \"arcsight\", \"atm\", \"atp\", \"av\", \"avast\", \"avg\", \"avira\", \"baidu\", \"baiduspider\", \"bank\", \"barracuda\", \"bingbot\", \"bitdefender\", \"bluvector\", \"canary\", \"carbon\", \"carbonblack\", \"certificate\", \"check\", \"checkpoint\", \"citrix\", \"clamav\", \"code42\", \"comodo\", \"countercept\", \"countertack\", \"credential\", \"crowdstrike\", \"custom\", \"cyberark\", \"cybereason\", \"cylance\", \"cynet360\", \"cyren\", \"darktrace\", \"datadog\", \"defender\", \"druva\", \"drweb\", \"duckduckbot\", \"edr\", \"egambit\", \"emsisoft\", \"encase\", \"endgame\", \"ensilo\", \"escan\", \"eset\", \"exabot\", \"exception\", \"f-secure\", \"f5\", \"falcon\", \"fidelis\", \"fireeye\", \"firewall\", \"fix\", \"forcepoint\", \"forti\", \"fortigate\", \"fortil\", \"fortinet\", \"gdata\", \"gravityzone\", \"guard\", \"honey\", \"huntress\", \"identity\", \"ikarussecurity\", \"insight\", \"ivanti\", \"juniper\", \"k7antivirus\", \"k7computing\", \"kaspersky\", \"kingsoft\", \"kiosk\", \"laps\", \"lightcyber\", \"logging\", \"logrhythm\", \"lynx\", \"malwarebytes\", \"manageengine\", \"mass\", \"mcafee\", \"microsoft\", \"mj12bot\", \"msnbot\", \"nanoav\", \"nessus\", \"netwitness\", \"office365\", \"onedrive\", \"orion\", \"palo\", \"paloalto\", \"paloaltonetworks\", \"panda\", \"pass\", \"powershell\", \"proofpoint\", \"proxy\", \"qradar\", \"rdp\", \"rsa\", \"runasppl\", \"sandboxe\", \"sap\", \"scanner\", \"scanning\", \"sccm\", \"script\", \"secret\", \"secureage\", \"secureworks\", \"security\", \"sensitive\", \"sentinel\", \"sentinelone\", \"slurp\", \"smartcard\", \"sogou\", \"solarwinds\", \"sonicwall\", \"sophos\", \"splunk\", \"superantispyware\", \"symantec\", \"tachyon\", \"temporary\", \"tencent\", \"totaldefense\", \"transfer\", \"trapmine\", \"trend micro\", \"trendmicro\", \"trusteer\", \"trustlook\", \"uac\", \"vdi\", \"virusblokada\", \"virustotal\", \"virustotalcloud\", \"vpn\", \"vuln\", \"webroot\", \"whitelist\", \"wifi\", \"winrm\", \"workaround\", \"yubikey\", \"zillya\", \"zonealarm\", \"zscaler\"] as word match (n:GPO {domain: $result}) where toLower(n.name) CONTAINS toLower(word) RETURN n"
+                }
+            ]
+        },
+        {
             "name": "View all groups that contain the word 'admin'",
             "category": "GPO/Group Information",
             "queryList": [{
